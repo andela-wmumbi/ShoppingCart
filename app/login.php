@@ -1,22 +1,33 @@
 <?php
 
-use includes\session;
-use includes\db;
+require "../includes/session.php";
+require "../includes/db.php";
+require "../includes/utils.php";
 
-  if (!empty($_POST))
-  {
+if (loggedIn()) {
+    redirect('index.php');
+}
+if (!empty($_POST)) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      if(!empty($password)){
-      $valEmail = mysqli_real_escape_string($connect, $email);
-      $valPass = mysqli_real_escape_string($connect, $password);
+        if (!empty($password)) {
+            $sql = "SELECT id FROM users WHERE email=:email AND password=:password";
+            $auth = $connect->prepare($sql);
+            $auth->bindValue(':email', $email);
+            $auth->bindValue(':password', $password);
+            $auth->execute();
 
-      $sql = 
+            $result = $auth->fetchColumn();
 
-      }
+            if ($result) {
+                logIn($result);
+                redirect('index.php');
+            }
+            echo "User not found";
+        }
     }
-  }
+}
 ?>
 <form method="post">
   Email:<input type="text" name="email"><br>
