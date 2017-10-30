@@ -2,11 +2,15 @@
 
 require "../includes/session.php";
 
-var_dump($_POST);
 if(!empty($_POST)) {
-  $cart = $_POST['itemId'];
-  $_SESSION['itemId'] = $cart;
+  $cart = [];
+  $id = $_POST['itemId'];
 
-  print_r($_SESSION['itemId']);
+  $cart = $_SESSION['cart'];
+  if(!in_array($id, $cart)) {
+    $cart[] = $id;
+    $_SESSION['cart'] = $cart;
+  }
+  print_r($_SESSION['cart']);
 }
 ?>

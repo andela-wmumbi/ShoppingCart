@@ -29,8 +29,16 @@ if (!empty($_POST)) {
     }
 }
 ?>
-<form method="post">
-  Email:<input type="text" name="email"><br>
-  Password:<input type="password" name="password"><br>
-  <input type="submit" name="formSubmit" value="Submit">
-</form>
+<html>
+    <head>
+        <link rel="stylesheet" href="main.css" />
+    </head>
+    <body>
+    <form method="post">
+        Email:<input type="text" name="email"><br>
+        Password:<input type="password" name="password"><br>
+        <input type="submit" name="formSubmit" value="Submit">
+        </form>
+    </body>
+</html>
+

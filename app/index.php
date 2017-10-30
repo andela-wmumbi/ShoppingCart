@@ -9,6 +9,9 @@ $stmt->execute();
 $items = $stmt->fetchAll();
 
 ?>
+<html>
+<head> <link rel="stylesheet" href="main.css"></head>
+<div>
 <?php
 foreach($items as $key => $item) {
 echo '<div class="card">
@@ -21,3 +24,5 @@ echo '<div class="card">
 </div>';
 }
 ?>
+</div>
+</html>
