@@ -8,7 +8,7 @@ $itemId = $_GET['id'];
 if (filter_var($itemId, FILTER_VALIDATE_INT)) {
     $sql = "SELECT * FROM item WHERE id=:itemId";
     $stmt = $connect->prepare($sql);
-    $stmt->bindValue(':itemId',$itemId);
+    $stmt->bindValue(':itemId', $itemId);
     $stmt->execute();
 
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -22,7 +22,8 @@ echo '<h4>'.$item['name'].'</h4>
 
 echo '<form action="cartView.php" method="post">
       <input type="hidden" name="itemId" value='.$item['id'].'>
-      <button type="submit">Add to cart</button>
+      <input type="number" name="count" min="1" max="5"><br/>
+      <button type="submit" name="cart">Add to cart</button>
       </form>';
 ?>
 </div>

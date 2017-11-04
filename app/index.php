@@ -13,8 +13,8 @@ $items = $stmt->fetchAll();
 <head> <link rel="stylesheet" href="main.css"></head>
 <div>
 <?php
-foreach($items as $key => $item) {
-echo '<div class="card">
+foreach ($items as $key => $item) {
+    echo '<div class="card">
   <img src="" alt="Avatar">
   <div class="container">
     <h4><b>'.$item['name'].'</b></h4>
