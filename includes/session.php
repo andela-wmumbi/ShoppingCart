@@ -6,7 +6,7 @@ function loggedIn()
     if (isset($_SESSION['currentUserId'])) {
         return true;
     }
-      return false;
+    return false;
 }
 
 function logIn($userId)
