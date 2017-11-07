@@ -11,3 +11,38 @@
 .container {
     padding: 2px 16px;
 }
+.error {color: #FF0000;}
+
+.form {
+    width:303px;
+    margin:0 auto;
+}
+.loginform {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 62.5rem;
+    margin-top:200px;
+}
+label {
+    font-size: .75rem;
+    color: gray;
+    cursor: pointer;
+    display: block;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 0
+}
+.btn.btn-primary{
+    border-radius: 2px;
+    width:130px;
+    font-size: 14px;
+    height: 40px;
+    line-height: .6em;
+    background-color:  #9c27b0;
+    border: 0 solid  #9c27b0;
+    color: #fff;
+    float:right;
+}
+.link {
+    text-align: center!important;
+}

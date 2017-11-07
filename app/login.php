@@ -32,13 +32,27 @@ if (!empty($_POST)) {
 <html>
     <head>
         <link rel="stylesheet" href="main.css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
     </head>
     <body>
-    <form method="post">
-        Email:<input type="text" name="email"><br>
-        Password:<input type="password" name="password"><br>
-        <input type="submit" name="formSubmit" value="Submit">
+    <div class="loginform">
+        <form method="post" class="form">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div>
+            <button type="submit" name="formSubmit" class="btn btn-primary">Submit</button>
+            </div>
         </form>
+        <p class="link" style="margin-top: 10px; line-height: 2.0;">
+        <a href="./register.php">Create Account</a>
+        </p>
+    </div>
     </body>
 </html>
 
