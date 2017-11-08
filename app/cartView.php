@@ -2,6 +2,7 @@
 
 require "../includes/session.php";
 require "../includes/db.php";
+require "../includes/utils.php";
 
 if (!empty($_POST)) {
     $cart = [];
@@ -19,6 +20,8 @@ if (!empty($_POST)) {
     if ($id && filter_var($itemId, FILTER_VALIDATE_INT)) {
         $cart[$itemId] = $count;
         $_SESSION['cart'] = $cart;
+        redirect('index.php');
     }
+        echo "Item not found";
     print_r($_SESSION['cart']);
 }
