@@ -14,14 +14,18 @@ $items = $stmt->fetchAll();
 <div>
 <?php
 foreach ($items as $key => $item) {
-    echo '<div class="card">
-  <img src="" alt="Avatar">
-  <div class="container">
-    <h4><b>'.$item['name'].'</b></h4>
-    <p>'.$item['quantity'].'</p>
-    <a href="itemView.php?id='.$item['id'].'">View More</a>
-  </div>
-</div>';
+    echo '<div class="display">
+			<div class="card" style="width: 20rem;">
+				<a href="itemView.php?id='.$item['id'].'">
+					<img class="card-img-top" src="./images/watch.jpg" alt="Card image cap">
+				</a>
+				<div class="card-body">
+					<h4>'.$item['name'].'</h4>
+					<p>Quantity: '.$item['quantity'].'</p>
+					<p>Price: $'.$item['cost'].'</p>
+				</div>
+			</div>
+        </div>';
 }
 ?>
 </div>
