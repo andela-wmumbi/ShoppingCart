@@ -16,7 +16,7 @@ if (filter_var($itemId, FILTER_VALIDATE_INT)) {
 if (!empty($_POST)) {
     $cart = [];
     $itemId = $_POST['itemId'];
-    $count = $_POST['count'];
+    $quantity = $_POST['quantity'];
 
     $sql = "SELECT id FROM item WHERE id = :itemId";
     $stmt = $connect->prepare($sql);
@@ -27,7 +27,7 @@ if (!empty($_POST)) {
 
     $cart = $_SESSION['cart'];
     if ($id && filter_var($itemId, FILTER_VALIDATE_INT)) {
-        $cart[$itemId] = $count;
+        $cart[$itemId] = $quantity;
         $_SESSION['cart'] = $cart;
         redirect('index.php');
     }
@@ -47,9 +47,9 @@ echo '<div class="display">
 				</div>
       </div>';
 
-echo '<form action="cartView.php" method="post">
+echo '<form action="" method="post">
       <input type="hidden" name="itemId" value='.$item['id'].'>
-			Qty: <input type="number" name="count" min="1" max="'.$item['quantity'].'" value="1">
+			Qty: <input type="number" name="quantity" min="1" max="'.$item['quantity'].'" value="1">
 			<br>
 			<br>
       <button type="submit" name="cart">Add to cart</button>
