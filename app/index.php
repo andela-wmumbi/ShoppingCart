@@ -1,4 +1,5 @@
 <?php
+
 require "../includes/session.php";
 require "../includes/db.php";
 require "../includes/utils.php";
@@ -10,7 +11,10 @@ $items = $stmt->fetchAll();
 
 ?>
 <html>
-<head> <link rel="stylesheet" href="main.css"></head>
+<head>
+	<link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
 <div>
 <?php
 foreach ($items as $key => $item) {
@@ -28,5 +32,8 @@ foreach ($items as $key => $item) {
         </div>';
 }
 ?>
+ <a href="cartView.php" class="btn btn-info btn-lg">
+    <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
+</a>
 </div>
 </html>
