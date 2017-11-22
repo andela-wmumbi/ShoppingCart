@@ -3,68 +3,87 @@ require "../includes/session.php";
 require "../includes/db.php";
 require "../includes/utils.php";
 
-$valErr = $confirmErr = "";
-if (!empty($_POST)) {
-    if (empty($_POST['email']) || empty($_POST['name']) || empty($_POST['password']) || empty($_POST['confirmpwd'])) {
-        $valErr = "Field required";
-    } else {
+$emailErr = $nameErr = $passwordErr = $confirmErr = $valErr = "";
+
+if (isset($_POST["formSubmit"])) {
+    empty(trim($_POST['email'])) ? $emailErr = "Field required" : "";
+    empty(trim($_POST['name'])) ?  $nameErr = "Field required" : "";
+    empty(trim($_POST['password'])) ? $passwordErr = "Field required" : "";
+    empty(trim($_POST['confirmpwd'])) ? $confirmErr = "Field required" : "";
+    (!empty(trim($_POST['email'])) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) ? $valErr = "Enter a valid email" : "";
+
+    ($_POST['password'] !== $_POST['confirmpwd']) ? $confirmErr = "Passwords do not match" : "";
+
+    if (!$emailErr && !$nameErr && !$passwordErr && !$confirmErr) {
         $email = $_POST['email'];
         $name = $_POST['name'];
-
-        if ($_POST['password'] != $_POST['confirmpwd']) {
-            $confirmErr = "Passwords do not match";
-        } else {
-            $password = $_POST['password'];
-        }
-        $confirmpassword = $_POST['confirmpwd'];
+        $password = $_POST['password'];
         $hashedpwd = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO users(name,email,password) VALUES(:name,:email,:password)";
-
-        $auth = $connect->prepare($sql);
-        $auth->bindValue(':name', $name);
-        $auth->bindValue(':email', $email);
-        $auth->bindValue(':password', $hashedpwd);
-        $auth->execute();
-
-        $result = $connect->lastInsertId();
+        $sql = "SELECT email FROM users WHERE email=:email";
+        $stmt = $connect->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
 
         if ($result) {
-            logIn($result);
-            redirect('index.php');
+            $emailErr = "Email already exists";
+        } else {
+            $sql = "INSERT INTO users(name,email,password) VALUES(:name,:email,:password)";
+
+            $auth = $connect->prepare($sql);
+            $auth->bindValue(':name', $name);
+            $auth->bindValue(':email', $email);
+            $auth->bindValue(':password', $hashedpwd);
+            $auth->execute();
+
+            $result = $connect->lastInsertId();
+
+            if ($result) {
+                logIn($result);
+                redirect('index.php');
+            }
         }
     }
 }
 ?>
 <html>
-    <head>
-        <link rel="stylesheet" href="main.css" />
-        <link rel="stylesheet" href="css/bootstrap.min.css" />
-    </head>
-    <body>
-        <div>
-    <form method = "post">
-        Full Name:<input type="text" name="name"
-        value="<?php echo isset($_POST['name']) ? $_POST['name'] : '';?>"
-        >
-         <span class="error">* <?php echo $valErr;?></span>
-         <br>
-         <br>
-        Email:<input type="email" name="email"
+<head>
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+<body>
+<div class="create">Create an account</div>
+<div>
+  <form method = "post"  class="form">
+    <div class="form-group">
+      <label>Full name</label>
+      <input type="text" name="name" class="form-control"
+        placeholder="Enter fullname"
+        value="<?php echo isset($_POST['name']) ? $_POST['name'] : '';?>">
+      <span class="error">* <?php echo $nameErr;?></span>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="text" name="email" class="form-control"
+        id="exampleInputEmail1" aria-describedby="emailHelp"
+        placeholder="Enter email"
         value="<?php echo isset($_POST['email']) ? $_POST['email'] : '';?>">
-         <span class="error">* <?php echo $valErr;?></span>
-        <br>
-        <br>
-        Password:<input type="password" name="password">
-        <span class="error">* <?php echo $valErr;?></span>
-        <br>
-        <br>
-        Confirm Password:<input type="password" name="confirmpwd">
-         <span class="error">* <?php echo $valErr;?> <?php echo $confirmErr;?></span>
-        <br>
-        <br>
-        <input type="submit" name="formSubmit" value="Submit">
-    </form>
-        </div>
+      <span class="error">* <?php echo $emailErr;?><?php echo $valErr;?></span>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" name="password" class="form-control"
+        id="exampleInputPassword1" placeholder="Password">
+      <span class="error">* <?php echo $passwordErr;?></span>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Confirm Password</label>
+      <input type="password" name="confirmpwd" class="form-control"
+        id="exampleInputPassword1" placeholder="Password">
+      <span class="error">* <?php echo $confirmErr;?></span>
+    <button type="submit" name="formSubmit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+</div>
 </body>
 </html>

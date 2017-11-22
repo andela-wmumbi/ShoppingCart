@@ -15,6 +15,3 @@ ratings:
 exclude_paths:
 - .git/**/*
 - vendor/**/*
-- app/css
-- app/js
-- .css
