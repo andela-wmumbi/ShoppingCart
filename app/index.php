@@ -25,7 +25,7 @@ foreach ($items as $key => $item) {
 				</a>
 				<div class="card-body">
 					<h4>'.$item['name'].'</h4>
-					<p>Stock: '.$item['quantity'].'</p>
+					<p>Stock: '.$item['stock'].'</p>
 					<p>Price: $'.$item['cost'].'</p>
 				</div>
 			</div>
