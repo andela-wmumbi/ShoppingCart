@@ -46,6 +46,14 @@ if (isset($_POST["cart"]) && filter_var($itemId, FILTER_VALIDATE_INT)) {
     }
 }
 ?>
+<html>
+  <head>
+     <link rel="stylesheet" href="main.css">
+      <link rel="stylesheet" href="css/bootstrap.min.css" />
+  </head>
+<div>
+<?php include_once "./header.html"?>
+</div>
 <div>
 <?php
 $disabled = "";
@@ -75,3 +83,4 @@ echo '
 '
 ?>
 </div>
+</html>

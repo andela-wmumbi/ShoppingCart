@@ -19,6 +19,9 @@ $items = $stmt->fetchAll();
   <link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
 <div>
+<?php include_once "./header.html"?>
+</div>
+<div class="display">
 <?php
 $message = "";
 foreach ($items as $key => $item) {
@@ -40,8 +43,5 @@ foreach ($items as $key => $item) {
           </div>';
 }
 ?>
-<a href="cartView.php" class="btn btn-info btn-lg">
-  <span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
-</a>
 </div>
 </html>

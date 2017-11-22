@@ -4,13 +4,13 @@ require "../includes/session.php";
 require "../includes/db.php";
 require "../includes/utils.php";
 
-$items = $_SESSION['cart'];
 /**
  * Obtain POST delete details
  * Remove item from cart
  * Update items stock
  */
 if (isset($_POST["delete"])) {
+    $items = $_SESSION['cart'];
     $itemId = $_POST['itemId'];
     $oldQuantity = $items[$itemId];
     unset($items[$itemId]);
@@ -29,6 +29,7 @@ if (isset($_POST["delete"])) {
  * Update item stock
  */
 if (isset($_POST['update'])) {
+    $items = $_SESSION['cart'];
     $itemId = $_POST['itemId'];
     $oldQuantity = $items[$itemId];
     $newQuantity = $_POST['quantity'];
@@ -46,28 +47,37 @@ if (isset($_POST['update'])) {
  * Fetch all details of item ids in cart
  * Display the details
  */
-if (count($items) == 0) {
-    echo "No items in cart";
+$result = [];
+if (isset($_SESSION['cart'])) {
+    $items = $_SESSION['cart'];
+    $itemsIds = implode(",", array_keys($items));
+    $sql = "SELECT * FROM item WHERE id IN ($itemsIds)";
+    $stmt = $connect->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
 }
-$itemsIds = implode(",", array_keys($items));
-$sql = "SELECT * FROM item WHERE id IN ($itemsIds)";
-$stmt = $connect->prepare($sql);
-$stmt->execute();
-$result = $stmt->fetchAll();
 
 ?>
 <html>
 <head>
   <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
 <div>
+<?php include_once "./header.html"?>
+</div>
+<div class="cartview">
+<?php
+$disabled = "";
+echo (!$result ? 'No items in cart' : '
   <table border="0">
     <hr>
     <tr>
       <th colspan="2"> Shopping</th>
       <th> Price</th>
       <th> Quantity</th>
-    </tr>
+    </tr>');
+?>
     <?php foreach ($result as $key => $item) {
         echo '
           <tr>
@@ -104,6 +114,6 @@ $result = $stmt->fetchAll();
     ?>
   </table>
 <hr>
-<a href="checkout.php">Checkout</a>
+<?php echo ($result ? '<a href="checkout.php">Checkout</a>' : "")?>
 </div>
 </html>

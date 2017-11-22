@@ -1,17 +1,19 @@
+---
 engines:
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - php
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
   phpmd:
     enabled: true
-    config:
-      file_extensions: "php"
-      rulesets: "phpmd-ruleset.xml"
-  phpcodesniffer:
-    enabled: true
-    config:
-      file_extensions: "php"
-      rulesets: "phpcs-ruleset.xml"
 ratings:
   paths:
   - "**.php"
-exclude_paths:
-- .git/**/*
-- vendor/**/*
+exclude_paths: []

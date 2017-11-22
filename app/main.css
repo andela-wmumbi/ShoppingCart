@@ -89,3 +89,21 @@ ul {
 .err {
     text-align: center;
 }
+
+.checkout {
+    width: 500px;
+    margin-left: 20px;
+    margin: 25px 700px 0px 100px;
+}
+
+.checkout title {
+    margin-left: 100px;
+}
+
+.btn.btn-primary {
+    float: left;
+}
+
+.cartview {
+    margin: 25px 700px 0px 100px;
+}
