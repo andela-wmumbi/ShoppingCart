@@ -6,10 +6,10 @@ require "../includes/utils.php";
 $emailErr = $nameErr = $passwordErr = $confirmErr = $valErr = "";
 
 if (isset($_POST["formSubmit"])) {
-    empty(trim($_POST['email'])) ? $emailErr = "Field required" : "";
-    empty(trim($_POST['name'])) ?  $nameErr = "Field required" : "";
-    empty(trim($_POST['password'])) ? $passwordErr = "Field required" : "";
-    empty(trim($_POST['confirmpwd'])) ? $confirmErr = "Field required" : "";
+    empty(trim($_POST['email'])) ? $emailErr = "Email required" : "";
+    empty(trim($_POST['name'])) ?  $nameErr = "Name required" : "";
+    empty(trim($_POST['password'])) ? $passwordErr = "Password required" : "";
+    empty(trim($_POST['confirmpwd'])) ? $confirmErr = "Password required" : "";
     (!empty(trim($_POST['email'])) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) ? $valErr = "Enter a valid email" : "";
 
     ($_POST['password'] !== $_POST['confirmpwd']) ? $confirmErr = "Passwords do not match" : "";
@@ -64,7 +64,7 @@ if (isset($_POST["formSubmit"])) {
       <span class="error">* <?php echo $nameErr;?></span>
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
-      <input type="text" name="email" class="form-control"
+      <input type="email" name="email" class="form-control"
         id="exampleInputEmail1" aria-describedby="emailHelp"
         placeholder="Enter email"
         value="<?php echo isset($_POST['email']) ? $_POST['email'] : '';?>">
@@ -81,7 +81,10 @@ if (isset($_POST["formSubmit"])) {
       <input type="password" name="confirmpwd" class="form-control"
         id="exampleInputPassword1" placeholder="Password">
       <span class="error">* <?php echo $confirmErr;?></span>
-    <button type="submit" name="formSubmit" class="btn btn-primary">Submit</button>
+    <div>
+      <button type="submit" name="formSubmit" class="btn btn-primary">Submit</button>
+      <a href="./login.php">Login</a>
+    </div>
   </form>
 </div>
 </div>
